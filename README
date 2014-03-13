@@ -1,4 +1,4 @@
-Visual Studio 2103 solution for multiple expanders.
+Visual Studio 2013 solution for multiple expanders.
 
 Only one expander can be expanded at a time.
 Expander height is exactly equal to the available space, scrolling only occurs inside expanders.
