@@ -1,0 +1,67 @@
+﻿<Window x:Class="ExpanderTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ExpanderTest"
+        Title="MainWindow" Height="350" Width="525">
+    
+    <!-- This outermost scrollviewer is the container of the expanders. It is a scrollviewver with disabled (hidden) scrollbars,
+         it makes sure that the available space never extends the window (or any other outer container...). It also has some
+         resources - converters - that the child elements can use.
+    -->
+    <ScrollViewer x:Name="containingScrollViewer" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+        <ScrollViewer.Resources>
+            <local:ExpanderToBooleanConverter x:Key="ExpanderToBooleanConverter" />
+            <local:ExpanderToInverseBooleanConverter x:Key="ExpanderToInverseBooleanConverter" />
+            <local:ExpanderMaxHeightConverter x:Key="ExpanderMaxHeightConverter" />
+        </ScrollViewer.Resources>
+        <StackPanel>
+            <Expander Header="Expander A"
+                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=1}">
+                <Expander.Content>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                  MaxHeight="{Binding ElementName=containingScrollViewer, Path=ActualHeight, Converter={StaticResource ExpanderMaxHeightConverter}, ConverterParameter=3}" 
+                                  MinHeight="{Binding ElementName=containingScrollViewer, Path=ActualHeight, Converter={StaticResource ExpanderMaxHeightConverter}, ConverterParameter=3}" 
+                                  IsEnabled="True">
+                                    
+                        <StackPanel>
+                            <TextBlock Text="{Binding ElementName=containingScrollViewer, Path=ActualHeight}" />
+                            <Button>Test 2</Button>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Expander.Content>
+            </Expander>
+
+            <Expander Header="Expander B" 
+                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=2}">
+                <Expander.Content>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                  MaxHeight="{Binding ElementName=containingScrollViewer, Path=ActualHeight, Converter={StaticResource ExpanderMaxHeightConverter}, ConverterParameter=3}" 
+                                  MinHeight="{Binding ElementName=containingScrollViewer, Path=ActualHeight, Converter={StaticResource ExpanderMaxHeightConverter}, ConverterParameter=3}" >
+                        <StackPanel>
+                            <Button Height="200">Test 1</Button>
+                            <Button Height="200">Test 2</Button>
+                            <Button Height="200">Test 3</Button>
+                            <Button Height="200">Test 4</Button>
+                            <Button Height="200">Test 5</Button>
+                            <Button Height="200">Test 6</Button>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Expander.Content>
+            </Expander>
+
+            <Expander Header="Expander C" 
+                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=3}">
+                <Expander.Content>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                  MaxHeight="{Binding ElementName=containingScrollViewer, Path=ActualHeight, Converter={StaticResource ExpanderMaxHeightConverter}, ConverterParameter=3}" 
+                                  MinHeight="{Binding ElementName=containingScrollViewer, Path=ActualHeight, Converter={StaticResource ExpanderMaxHeightConverter}, ConverterParameter=3}" >
+                        <StackPanel>
+                            <Button>Test 1</Button>
+                            <Button>Test 2</Button>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Expander.Content>
+            </Expander>
+    </StackPanel>
+    </ScrollViewer>
+</Window>
